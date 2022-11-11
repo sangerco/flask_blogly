@@ -23,7 +23,7 @@ def home_page():
 @app.route("/users")
 def user_listing():
     """ shows list of users """
-    users = User.query.all()
+    users = User.query.order_by(User.last_name)
     return render_template('users.html', users=users)
 
 @app.route('/users/new')
