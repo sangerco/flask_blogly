@@ -4,16 +4,20 @@
 {% block title %}{{user.first_name}} {{user.last_name}}{% endblock %}
 
 {% block content%}
-<img src="{{user.image_url}}" alt="Picture of {{user.first_name}} {{user.last_name}}">
+<img src="{{user.image_url}}" alt="Picture of {{user.first_name}} {{user.last_name}}" width="300">
+
+<p id="user-name">{{user.first_name}} {{user.last_name}}</p>
 
 <button id="editButton">Edit</button><button id="deleteButton">Delete</button>
 
+
+
 <script type="text/javascript">
         document.getElementById("editButton").onclick = function () {
-            location.href = "/users/<int:user.id>/edit";
+            location.href = "/users/edit/{{user.id}}";
         };
         document.getElementById("deleteButton").onclick = function () {
-            location.href = "/users/<int:user.id>/delete";
+            location.href = "/users/delete/{{user.id}}";
         };
 </script>
 

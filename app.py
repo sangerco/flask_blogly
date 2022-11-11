@@ -16,7 +16,7 @@ connect_db(app)
 db.create_all()
 
 @app.route("/")
-def user_listing():
+def home_page():
     """ redirect to user list page """
     return redirect ('/users')
 
@@ -29,7 +29,7 @@ def user_listing():
 @app.route('/users/new')
 def add_user():
     """ show form to add new users """
-    render_template('add-users')
+    return render_template('add-user.html')
 
 @app.route('/users/new', methods=['POST'])
 def create_user():
@@ -50,12 +50,13 @@ def show_user(user_id):
     user = User.query.get_or_404(user_id)
     return render_template("user-info.html", user=user)
 
-@app.route('/users/<int:user_id>/edit')
-def show_edit_user_form():
+@app.route('/users/edit/<int:user_id>')
+def show_edit_user_form(user_id):
     """ display user details and provide cancel and save buttons """
-    return render_template('edit-user.html')
+    user = User.query.get_or_404(user_id)
+    return render_template("edit-user.html", user=user)
 
-@app.route('/users/<int:user_id>/edit', methods=['POST'])
+@app.route('/users/edit/<int:user_id>', methods=['POST'])
 def edit_user(user_id):
     """ take edited user info and post to database """
     first_name = request.form["first_name"]
@@ -71,7 +72,7 @@ def edit_user(user_id):
 
     return redirect ('/users')
 
-@app.route("/users/<int:user.id>/delete", methods=['POST'])
+@app.route("/users/delete/<int:user_id>")
 def delete_user(user_id):
     """ delete user from database and return to users page """
 

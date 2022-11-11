@@ -5,9 +5,9 @@
 
 {% block content%}
 
-<h1>Create User</h1>
+<h1>Edit User</h1>
 
-<form action="/users" method="POST">
+<form action="/users/edit/{{user.id}}" method="POST">
     <input type="text" name="first_name" placeholder="{{user.first_name}}">
     <input type="text" name="last_name" placeholder="{{user.last_name}}">
     <input type="text" name="image_url" placeholder="{{user.image_url}}">
@@ -16,7 +16,7 @@
 
 <script type="text/javascript">
     document.getElementById("cancelButton").onclick = function () {
-        location.href = "/users/<int:user_id>";
+        location.href = "/users/{{user.id}}";
     };
 </script>
 
