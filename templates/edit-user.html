@@ -5,14 +5,37 @@
 
 {% block content%}
 
-<h1>Edit User</h1>
+<h1 id="users">Edit User</h1>
 
-<form action="/users/edit/{{user.id}}" method="POST">
-    <input type="text" name="first_name" placeholder="{{user.first_name}}">
-    <input type="text" name="middle_name" placeholder="{{user.middle_name}}">
-    <input type="text" name="last_name" placeholder="{{user.last_name}}">
-    <input type="text" name="image_url" placeholder="{{user.image_url}}">
-    <button id="cancelButton">Cancel</button><button>Edit</button>
+<form id="form" action="/users/edit/{{user.id}}" method="POST">
+    <div class="mb-3">
+        <label class="col-sm-2 col-form-label">First Name</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" name="first_name" placeholder="{{user.first_name}}">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="col-sm-2 col-form-label">Middle Name</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" name="middle_name" placeholder="{{user.middle_name}}">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-5">        
+            <input type="text" class="form-control" name="last_name" placeholder="{{user.last_name}}">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="col-sm-2 col-form-label">Middle Name</label>
+        <div class="col-sm-5">    
+            <input type="text" class="form-control" name="image_url" placeholder="{{user.image_url}}">
+        </div>
+    </div>
+    <div id="button_container">
+        <button type="button" id="cancelButton" class="btn btn-danger">Cancel</button>
+        <button class="btn btn-primary">Edit</button>
+    </div>
 </form>
 
 <script type="text/javascript">

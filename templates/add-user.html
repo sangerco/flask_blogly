@@ -5,14 +5,43 @@
 
 {% block content%}
 
-<h1>Create User</h1>
+<h1 id="users">Create User</h1>
 
-<form action="/users/new" method="POST">
-    <input type="text" name="first_name" placeholder="Enter a first name">
-    <input type="text" name="middle_name" placeholder="Enter a middle name">
-    <input type="text" name="last_name" placeholder="Enter a last name">
-    <input type="text" name="image_url" placeholder="Provide an image of this user">
-    <button>Add</button>
+<form id="form" action="/users/new" method="POST">
+    <div class="mb-3">
+        <label class="col-sm-2 col-form-label">First Name</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" name="first_name" placeholder="Enter a first name">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="col-sm-2 col-form-label">Middle Name</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" name="middle_name" placeholder="Enter a middle name (Optional)">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-5">        
+            <input type="text" class="form-control" name="last_name" placeholder="Enter a last name">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="col-sm-2 col-form-label">Middle Name</label>
+        <div class="col-sm-5">    
+            <input type="text" class="form-control" name="image_url" placeholder="Enter an image URL">
+        </div>
+    </div>
+    <div id="button_container">
+        <button class="btn btn-primary">Add</button>
+        <button type="button" id="cancelButton" class="btn btn-danger">Cancel</button>
+    </div>
 </form>
+
+<script type="text/javascript">
+    document.getElementById("cancelButton").onclick = function () {
+        location.href = "/users";
+    };
+</script>
 
 {% endblock %}

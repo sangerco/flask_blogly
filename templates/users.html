@@ -4,14 +4,16 @@
 {% block title %}Users{% endblock %}
 
 {% block content%}
-<h1>Users</h1>
-<ul>
+<h1 id="users">Users</h1>
+<ul id="user-list">
     {% for user in users %}
     <li><a href="/users/{{user.id}}">{{user.get_full_name()}}</a></li>
     {% endfor %}
 </ul>
 
-<button id="addButton">Add User</button>
+<div id="button_container">
+    <button type="button" id="addButton" class="btn btn-success">Add User</button>
+</div>
 
 <script type="text/javascript">
         document.getElementById("addButton").onclick = function () {
