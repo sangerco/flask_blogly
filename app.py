@@ -35,10 +35,11 @@ def add_user():
 def create_user():
     """ take new user info and post to database """
     first_name = request.form["first_name"]
+    middle_name = request.form["middle_name"]
     last_name = request.form["last_name"]
     image_url = request.form["image_url"]
 
-    new_user = User(first_name=first_name, last_name=last_name, image_url=image_url)
+    new_user = User(first_name=first_name, middle_name=middle_name, last_name=last_name, image_url=image_url)
     db.session.add(new_user)
     db.session.commit()
 

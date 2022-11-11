@@ -16,9 +16,19 @@ class User(db.Model):
                     primary_key=True,
                     autoincrement=True)
     first_name = db.Column(db.String(20), nullable=False)
+    middle_name = db.Column(db.String(20))
     last_name = db.Column(db.String(20), nullable=False)
     image_url = db.Column(db.String)
 
     def __repr__(self):
         u = self
         return f"<User: {u.first_name} {u.last_name}>"
+
+    def get_full_name(self):
+        """ return the full name of the user as a single string """
+        u = self
+
+        if u.middle_name:
+            return f"{u.first_name} {u.middle_name} {u.last_name}"
+        else:
+            return f"{u.first_name} {u.last_name}"
