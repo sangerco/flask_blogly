@@ -6,6 +6,13 @@
 {% block content%}
 <h2 id="user-name">{{user.get_full_name()}}</h2>
 
+<h3>Posts</h3>
+<ul>
+    {% for post in posts %}
+    <li><a href="/users/{{user.id}}">{{post.title}}</a></li>
+    {% endfor %}
+</ul>
+
 <img src="{{user.image_url}}" alt="Picture of {{user.get_full_name()}}" height="300">
 <div id="button_container">
     <button type="button" id="editButton" class="btn btn-primary">Edit</button>

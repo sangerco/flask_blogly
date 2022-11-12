@@ -1,7 +1,7 @@
 """Blogly application."""
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 
@@ -49,7 +49,8 @@ def create_user():
 def show_user(user_id):
     """ show details for user """
     user = User.query.get_or_404(user_id)
-    return render_template("user-info.html", user=user)
+    posts = Post.query.get(user_id)
+    return render_template("user-info.html", user=user, posts=posts)
 
 @app.route('/users/edit/<int:user_id>')
 def show_edit_user_form(user_id):
@@ -82,3 +83,9 @@ def delete_user(user_id):
     db.session.commit()
 
     return redirect ('/users')
+
+@app.route("/users/posts/<int:post_id>")
+def display_posts(post_id):
+    """ show individual post """
+    post = Post.query.get_or_404(post_id)
+    return render_template("post-info.html", post=post)
