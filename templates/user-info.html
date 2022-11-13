@@ -4,20 +4,38 @@
 {% block title %}{{user.get_full_name()}}{% endblock %}
 
 {% block content%}
-<h2 id="user-name">{{user.get_full_name()}}</h2>
+<div class="container">
+    
+    
+    <div class="row align-items-start">
+        <div class="col">
+            <img src="{{user.image_url}}" alt="Picture of {{user.get_full_name()}}" height="300">
 
-<h3>Posts</h3>
-<ul>
-    {% for post in posts %}
-    <li><a href="/users/{{user.id}}">{{post.title}}</a></li>
-    {% endfor %}
-</ul>
+        
+        </div>    
+        <div class="col">
+            <h2 id="user-name">{{user.get_full_name()}}</h2>
+            <div id="button_container">
+                <button type="button" id="editButton" class="btn btn-primary">Edit</button>
+                <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
+                <button type="button" id="returnButton" class="btn btn-success">Go Back</button>
+            </div>
+            <h3>Posts</h3>
 
-<img src="{{user.image_url}}" alt="Picture of {{user.get_full_name()}}" height="300">
-<div id="button_container">
-    <button type="button" id="editButton" class="btn btn-primary">Edit</button>
-    <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
-    <button type="button" id="returnButton" class="btn btn-success">Go Back</button>
+            <ul>
+                {% for post in posts %}
+                <li><a href="/users/posts/{{post.id}}">{{post.title}}</a></li>
+                {% endfor %}
+            </ul>
+
+            <div id="add_button_container">
+                <button type="button" id="addNewPostButton" class="btn btn-primary">Add Post</button>
+            </div>
+        </div> 
+        <div class="col">
+
+        </div>
+    </div> 
 </div>
 <script type="text/javascript">
         document.getElementById("editButton").onclick = function () {
@@ -28,6 +46,9 @@
         };
         document.getElementById("returnButton").onclick = function () {
             location.href = "/users";
+        };
+        document.getElementById("addNewPostButton").onclick = function () {
+            location.href = "/users/{{user.id}}/posts/new";
         };
 </script>
 

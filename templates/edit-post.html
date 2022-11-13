@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content%}
+<div class="container">
+    <h1>Edit {{post.title}}</h1>
+
+    <form id="form" action="/users/edit/posts/{{post.id}}" method="POST">
+        <div class="form-group">
+         <label>Title</label>
+            <input type="text" class="form-control" name="title" placeholder="{{post.title}}">
+        </div>    
+        <div class="form-group">
+            <label>Content</label>
+            <textarea class="form-control" name="content" rows="3" placeholder="{{post.content}}"></textarea>
+        </div>
+        <div id="button_container">
+            <button class="btn btn-primary">Edit</button>
+            <button type="button" id="cancelPostEditButton" class="btn btn-danger">Cancel</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    document.getElementById("cancelPostEditButton").onclick = function () {
+        location.href = "/users/{{post.user.id}}";
+    };
+</script>
+
+{% endblock %}

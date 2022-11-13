@@ -4,13 +4,31 @@
 {% block title %}{{post.title}}{% endblock %}
 
 {% block content%}
+<div class="container">
+    <h1 id="post-title">{{post.title}}</h1>
 
-<h1>{{post.title}}</h1>
+    <div id="post-div">
+        <p>{{post.content}}</p>
 
-<div>
-    <p>{{post.content}}</p>
-
-    <a href="/"></a>
+        <p id="post-author">By <a href="/users/{{post.user.id}}">{{post.user.get_full_name()}}</a></p>
+    </div>
+    <div id="button_container">
+        <button type="button" id="editPostButton" class="btn btn-primary">Edit</button>
+        <button type="button" id="deletePostButton" class="btn btn-danger">Delete</button>
+        <button type="button" id="returnButton" class="btn btn-success">Go Back</button>
+    </div>
 </div>
+
+<script type="text/javascript">
+    document.getElementById("editPostButton").onclick = function () {
+        location.href = "/users/edit/posts/{{post.id}}";
+    };
+    document.getElementById("deletePostButton").onclick = function () {
+        location.href = "/users/posts/delete/{{post.id}}";
+    };
+    document.getElementById("returnButton").onclick = function () {
+        location.href = "/users/{{post.user.id}}";
+    };
+</script>
 
 {% endblock %}

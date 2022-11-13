@@ -49,7 +49,7 @@ def create_user():
 def show_user(user_id):
     """ show details for user """
     user = User.query.get_or_404(user_id)
-    posts = Post.query.get(user_id)
+    posts = Post.query.filter_by(user_id = user_id)
     return render_template("user-info.html", user=user, posts=posts)
 
 @app.route('/users/edit/<int:user_id>')
@@ -84,8 +84,62 @@ def delete_user(user_id):
 
     return redirect ('/users')
 
+@app.route("/users/<int:user_id>/posts/new")
+def show_new_post_form(user_id):
+    """ display form to create new post """
+    user = User.query.get_or_404(user_id)
+    return render_template("new-post.html", user=user)
+
+@app.route("/users/<int:user_id>/posts/new", methods=['POST'])
+def add_new_post(user_id):
+    """ add created post to database, return to user profile page """
+    user = User.query.get_or_404(user_id)
+    title = request.form["title"]
+    content = request.form["content"]
+    # created_at = 
+    user_id = user.id
+
+    new_post = Post(title=title, content=content, user_id=user_id)
+    db.session.add(new_post)
+    db.session.commit()
+
+    return redirect ('/users')
+    
+
 @app.route("/users/posts/<int:post_id>")
 def display_posts(post_id):
     """ show individual post """
     post = Post.query.get_or_404(post_id)
     return render_template("post-info.html", post=post)
+
+@app.route('/users/edit/posts/<int:post_id>')
+def show_edit_post_form(post_id):
+    """ display post details and provide cancel and save buttons """
+    post = Post.query.get_or_404(post_id)
+    return render_template("edit-post.html", post=post)
+
+@app.route('/users/edit/posts/<int:post_id>', methods=['POST'])
+def edit_post(post_id):
+    """ submit post changes to db and return to user page """
+    title = request.form["title"]
+    content = request.form["content"]
+    
+    post = Post.query.get(post_id)
+    user_id = post.user_id
+    post.title = title
+    post.content = content
+    post.user_id = user_id
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect ('/users')
+
+@app.route("/users/posts/delete/<int:post_id>")
+def delete_post(post_id):
+    """ delete user from database and return to users page """
+
+    post = Post.query.get(post_id)
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect ('/users')
