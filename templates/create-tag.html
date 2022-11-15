@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Create Tag{% endblock %}
+
+{% block content%}
+
+<div class="container">
+    <h1>Create a Tag</h1>
+
+    <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" name="name">
+    </div>  
+
+    <div id="button_container">
+        <button type="button" id="cancelTagButton" class="btn btn-danger">Cancel</button>
+        <button class="btn btn-primary">Add</button>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById("cancelTagButton").onclick = function () {
+        location.href = "/users/posts/{{post.id}}";
+    };
+</script>
+
+{% endblock %}
+

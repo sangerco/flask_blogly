@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{tag.tag_name}}{% endblock %}
+
+{% block content%}
+<div class="container">
+    <h1>{{tag.tag_name}}</h1>
+
+    <ul>
+        {% for post in posts %}
+        <li><a href="/users/posts/{{post.id}}">{{post.title}}</a></li>
+        {% endfor %}
+    </ul>
+    
+    <button type="button" id="editTagButton" class="btn btn-primary">Edit</button>
+    <button type="button" id="deleteTagButton" class="btn btn-danger">Delete</button>
+    <button type="button" id="returnTagButton" class="btn btn-success">Go Back</button>< 
+</div>
+<script type="text/javascript">
+        document.getElementById("editTagButton").onclick = function () {
+            location.href = "/tags/edit/{{tag.id}}";
+        };
+        document.getElementById("deleteTagButton").onclick = function () {
+            location.href = "/tags/delete/{{tag.id}}";
+        };
+        document.getElementById("returnTagButton").onclick = function () {
+            location.href = "/tags";
+        };
+</script>
+
+{% endblock %}

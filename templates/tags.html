@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Tags{% endblock %}
+
+{% block content%}
+<div class="container"> 
+    <h1>Tags</h1>
+    <ul>
+        {% for tag in tags %}
+        <li><a href="/tags/{{tag.id}}">{{tag.tag_name}}</a></li>
+        {% endfor %}
+    </ul>
+    <button id='addTagButton' class="btn btn-primary">Add</button>
+</div>
+<script type="text/javascript">
+    document.getElementById("addTagButton").onclick = function () {
+        location.href = "/tags/new";
+    };
+</script>
+
+{% endblock %}
