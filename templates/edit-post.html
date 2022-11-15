@@ -16,6 +16,14 @@
             <label>Content</label>
             <textarea class="form-control" name="content" rows="3" placeholder="{{post.content}}"></textarea>
         </div>
+        {% for tag in tags %}
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                <a href="/tags/{{tag.id}}">{{tag.name}}</a>
+            </label>
+        </div>
+        {% endfor %}
         <div id="button_container">
             <button class="btn btn-primary">Edit</button>
             <button type="button" id="cancelPostEditButton" class="btn btn-danger">Cancel</button>

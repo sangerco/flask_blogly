@@ -44,11 +44,15 @@ class Post(db.Model):
                     autoincrement=True)
     title = db.Column(db.String(50), nullable=False)
     content = db.Column(db.String, nullable=False)
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    created_at = db.Column(db.DateTime, server_default=db.func.now(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     # creates relationship between User and Post models
     user = db.relationship("User", backref='posts')
+
+    @property
+    def formatted_date(self):
+        return self.created_at.strftime("%a %b %d %Y, %I:%M %p")
 
 class Tag(db.Model):
     """ model for tag table """
@@ -58,7 +62,7 @@ class Tag(db.Model):
     id = db.Column(db.Integer,
                     primary_key=True,
                     autoincrement=True)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False, unique=True)
 
     posts = db.relationship('Post', secondary='posts_tags', backref='tags')
 
@@ -77,3 +81,9 @@ class PostTag(db.Model):
                         primary_key=True)
 
     tags = db.relationship('Tag', backref='posts_tags')
+
+def connect_db(app):
+    """  Connect database to app """
+
+    db.app = app
+    db.init_app(app)

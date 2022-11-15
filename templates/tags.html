@@ -8,14 +8,18 @@
     <h1>Tags</h1>
     <ul>
         {% for tag in tags %}
-        <li><a href="/tags/{{tag.id}}">{{tag.tag_name}}</a></li>
+        <li><a href="/tags/{{tag.id}}">{{tag.name}}</a></li>
         {% endfor %}
     </ul>
     <button id='addTagButton' class="btn btn-primary">Add</button>
+    <button id="returnToUsers" class="btn btn-success">Return to Users</button>
 </div>
 <script type="text/javascript">
     document.getElementById("addTagButton").onclick = function () {
         location.href = "/tags/new";
+    };
+    document.getElementById("returnToUsers").onclick = function () {
+        location.href = "/users";
     };
 </script>
 

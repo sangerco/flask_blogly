@@ -1,29 +1,28 @@
 {% extends 'base.html' %}
 
 
-{% block title %}Create Tag{% endblock %}
+{% block title %}Edit Tag{% endblock %}
 
 {% block content%}
 
 <div class="container">
-    <h1>Create a Tag</h1>
-        <form id="form" action="/tags/new" method="POST">
+    <h1>Edit Tag</h1>
+        <form id="form" action="/tags/edit/{{tag.id}}" method="POST">
             <div class="form-group">
                 <label>Title</label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" name="name" placeholder="{{tag.name}}">
             </div>  
 
             <div id="button_container">
                 <button type="button" id="cancelTagButton" class="btn btn-danger">Cancel</button>
-                <button class="btn btn-primary">Add</button>
+                <button class="btn btn-primary">Edit</button>
             </div>
         </form>
 </div>
 <script type="text/javascript">
     document.getElementById("cancelTagButton").onclick = function () {
-        location.href = "/tags";
+        location.href = "/tags/{{tag.id}}";
     };
 </script>
 
 {% endblock %}
-

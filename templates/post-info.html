@@ -10,7 +10,13 @@
     <div id="post-div">
         <p>{{post.content}}</p>
 
-        <p id="post-author">By <a href="/users/{{post.user.id}}">{{post.user.get_full_name()}}</a></p>
+        <p id="post-author">By <a href="/users/{{post.user.id}}">{{post.user.get_full_name()}}</a> on {{post.formatted_date}}</p>
+    </div>
+    <div>
+    <strong>Tags: </strong>
+    {% for tag in tags %}
+    <span class="badge rounded-pill bg-primary"><a href="/tags/{{tag.id}}" class="link-light">{{tag.name}}</a></span>
+    {% endfor %}
     </div>
     <div id="button_container">
         <button type="button" id="editPostButton" class="btn btn-primary">Edit</button>
@@ -32,3 +38,4 @@
 </script>
 
 {% endblock %}
+
