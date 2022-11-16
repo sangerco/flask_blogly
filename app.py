@@ -72,7 +72,7 @@ def edit_user(user_id):
     db.session.add(user)
     db.session.commit()
 
-    return redirect ('/users')
+    return redirect (f'/users/{user_id}')
 
 @app.route("/users/delete/<int:user_id>")
 def delete_user(user_id):
@@ -105,14 +105,14 @@ def add_new_post(user_id):
     db.session.add(new_post)
     db.session.commit()
 
-    return redirect ('/users')
+    return redirect (f'/users/{user_id}')
     
 
 @app.route("/users/posts/<int:post_id>")
 def display_posts(post_id):
     """ show individual post """
     post = Post.query.get_or_404(post_id)
-    tags = Tag.query.order_by(Tag.name)
+    tags = Post.query.get(post_id).tags
     return render_template("post-info.html", post=post, tags=tags)
 
 @app.route('/users/edit/posts/<int:post_id>')
@@ -124,15 +124,13 @@ def show_edit_post_form(post_id):
 
 @app.route('/users/edit/posts/<int:post_id>', methods=['POST'])
 def edit_post(post_id):
-    """ submit post changes to db and return to user page """
+    """ submit post changes to db and return to post page """
     title = request.form["title"]
     content = request.form["content"]
     
     post = Post.query.get(post_id)
-    user_id = post.user_id
     post.title = title
     post.content = content
-    post.user_id = user_id
 
     tag_ids = [int(num) for num in request.form.getlist("tags")]
     post.tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
@@ -140,7 +138,7 @@ def edit_post(post_id):
     db.session.add(post)
     db.session.commit()
 
-    return redirect ('/users')
+    return redirect (f'/users/posts/{post_id}')
 
 @app.route("/users/posts/delete/<int:post_id>")
 def delete_post(post_id):
@@ -213,7 +211,11 @@ def submit_edit_tag(tag_id):
 def delete_tag(tag_id):
     """ delete user from database and return to users page """
 
-    tag = Post.query.get(tag_id)
+    tag = Tag.query.get(tag_id)
+    posts_tags = tag.posts_tags
+    for post_tag in posts_tags:
+        db.session.delete(post_tag)
+
     db.session.delete(tag)
     db.session.commit()
 

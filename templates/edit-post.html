@@ -18,7 +18,7 @@
         </div>
         {% for tag in tags %}
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="{{tag.id}}" id="flexCheckDefault" name="tags">
             <label class="form-check-label" for="flexCheckDefault">
                 <a href="/tags/{{tag.id}}">{{tag.name}}</a>
             </label>
